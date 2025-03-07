@@ -1,0 +1,21 @@
+module myFirstModule(input logic bit1, bit2, bit3, bit4,
+	output logic a, b, c, d,
+	output [7:0] BCD, 
+	output [3:0] numero,
+
+	output reg [6:0] binary_seg7);
+	
+	
+	assign numero = {bit1, bit2, bit3, bit4};
+	
+	
+	binary_to_BCD BCD (
+        .binary_input(numero),
+        .BCD_output(BCD)
+    );
+	
+	// Lógica para convertir el sensor binario en segmentos 7-segmento
+	seg7_decoder seg7d_binary(BCD, binary_seg7);
+
+
+endmodule 
