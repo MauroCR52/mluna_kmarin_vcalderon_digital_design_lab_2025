@@ -1,12 +1,12 @@
 module ALU #(parameter WIDTH = 4) (
     input logic [WIDTH - 1:0] A, B,
     input logic [3:0] opcode,
-    output logic [WIDTH-1:0] result,  // <-- Se limita a WIDTH bits
+    output logic [WIDTH-1:0] result,  
     output logic N, Z, C, V
 );
 
 
-logic [WIDTH:0] addResult, subResult;  // <-- Se extiende a WIDTH+1 para carry
+logic [WIDTH:0] addResult, subResult;  
 logic [WIDTH*2-1:0] mulResult;
 logic [WIDTH-1:0] andResult, orResult, xorResult, shlResult, shrResult, divResult, modResult;
 
@@ -18,14 +18,14 @@ Adder #(WIDTH) adder(
     .num1(A), 
     .num2(B), 	
     .sum(addResult[WIDTH-1:0]), 
-    .cout(addResult[WIDTH])   // Carry es el bit extra
+    .cout(addResult[WIDTH])   
 );
 
 Subtractor #(WIDTH) subtractor(
     .minuendo(A), 
     .sustraendo(B), 
     .diferencia(subResult[WIDTH-1:0]),
-    .cout(subResult[WIDTH])  // Carry para resta
+    .cout(subResult[WIDTH])  
 );
 
 Multiplier #(WIDTH) multiplier(
@@ -38,8 +38,8 @@ Multiplier #(WIDTH) multiplier(
 assign andResult = A & B;
 assign orResult  = A | B;
 assign xorResult = A ^ B;
-assign shlResult = A << B;  // <--- Se corrige para usar B
-assign shrResult = A >> B;  // <--- Se corrige para usar B
+assign shlResult = A << B;  
+assign shrResult = A >> B;  
 assign divResult = (B != 0) ? A / B : 0;
 assign modResult = (B != 0) ? A % B : 0;
 
@@ -61,8 +61,8 @@ always_comb begin
 end
 
 // Flags
-assign N = result[WIDTH-1];   // Último bit de result (bit de signo)
-assign Z = (result == 0);     // Zero flag
+assign N = result[WIDTH-1];   
+assign Z = (result == 0);     
 
 
 assign C = (opcode == 4'b0000) ? addResult[WIDTH] : 
