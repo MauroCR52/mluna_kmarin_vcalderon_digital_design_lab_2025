@@ -61,7 +61,7 @@ always_comb begin
 end
 
 // Flags
-assign N = result[WIDTH-1];   
+assign N = = (opcode != 4'b0000) ? result[WIDTH-1] : 0; 
 assign Z = (result == 0);     
 
 
